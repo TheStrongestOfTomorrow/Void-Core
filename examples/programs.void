@@ -1,0 +1,205 @@
+// ============================================================
+// VOID CODE EXAMPLES
+// Mathematical Programming Language
+// ============================================================
+
+// Example 1: Hello World
+// ============================================================
+// The simplest Void program
+
+"Hello, Mathematical World!" → output
+
+
+// Example 2: Summation (Σ notation)
+// ============================================================
+// Calculate the sum of squares from 1 to 10
+
+result ← Σ_{i=1}^{10} i²
+result → output
+
+
+// Example 3: Factorial with Pattern Matching
+// ============================================================
+// Recursive function using pattern matching
+
+fact(0) = 1
+fact(n) = n * fact(n-1)
+
+fact(5) → output
+
+
+// Example 4: Fibonacci Sequence
+// ============================================================
+// Classic recursive example using mathematical definition
+
+fib(0) = 0
+fib(1) = 1
+fib(n) = fib(n-1) + fib(n-2)
+
+fib(10) → output
+
+
+// Example 5: Vector Operations
+// ============================================================
+// Create vectors and compute operations
+
+v1 ← {1, 2, 3}
+v2 ← {4, 5, 6}
+
+// Summation of vectors
+sum_v ← Σ_{i ∈ v1} i
+
+// Dot product (simplified)
+dot_v ← v1 · v2
+
+result ← {sum: sum_v, dot: dot_v}
+result → output
+
+
+// Example 6: Matrix Operations
+// ============================================================
+// Matrix creation and linear algebra
+
+A ← [[1, 2], [3, 4]]
+B ← [[5, 6], [7, 8]]
+
+// Matrix multiplication
+C ← A · B
+
+// Transpose
+A_T ← A^T
+
+result ← {product: C, transpose: A_T}
+result → output
+
+
+// Example 7: Set Theory
+// ============================================================
+// Set operations using ∈, ∪, ∩
+
+S1 ← {1, 2, 3, 4, 5}
+S2 ← {4, 5, 6, 7, 8}
+
+union ← S1 ∪ S2
+intersection ← S1 ∩ S2
+
+result ← {union: union, intersection: intersection}
+result → output
+
+
+// Example 8: Conditional with Iverson Brackets
+// ============================================================
+// Use [condition] to get 1 or 0 (mathematical notation)
+
+x ← 42
+is_even ← [x % 2 = 0]  // Returns 1 if true, 0 if false
+is_large ← [x > 100]   // 0 in this case
+
+result ← {even: is_even, large: is_large}
+result → output
+
+
+// Example 9: Universal Quantifier (∀)
+// ============================================================
+// Apply operation to all elements in a set
+
+data ← {1, 2, 3, 4, 5}
+
+// Square all elements
+squared ← {x² | x ∈ data}
+
+// Sum of squares
+sum_squared ← Σ_{x ∈ data} x²
+
+result ← {squared: squared, sum: sum_squared}
+result → output
+
+
+// Example 10: Integration (∫ notation)
+// ============================================================
+// Symbolic representation of integration
+
+// ∫_0^π sin(x) dx = 2 (mathematically)
+// In Void, we express it directly
+
+integral_result ← "∫_0^π sin(x) dx = 2"
+integral_result → output
+
+
+// Example 11: Partial Derivatives (∂ notation)
+// ============================================================
+// Symbolic calculus notation
+
+// f(x,y) = x² + 2xy + y²
+// ∂f/∂x = 2x + 2y
+// ∂f/∂y = 2x + 2y
+
+partial_x ← "2x + 2y"
+partial_y ← "2x + 2y"
+
+result ← {∂f/∂x: partial_x, ∂f/∂y: partial_y}
+result → output
+
+
+// Example 12: Product Notation (∏)
+// ============================================================
+// Calculate product using ∏ notation
+
+factorial_5 ← ∏_{n=1}^{5} n
+result ← {factorial: factorial_5}
+result → output
+
+
+// Example 13: Data Analysis
+// ============================================================
+// Statistical analysis using mathematical notation
+
+measurements ← {2.1, 2.3, 2.8, 3.1, 2.9}
+
+mean ← Σ_{x ∈ measurements} x / len(measurements)
+
+variance ← Σ_{x ∈ measurements} (x - mean)² / len(measurements)
+
+std_dev ← sqrt(variance)
+
+analysis ← {
+  measurements: measurements,
+  mean: mean,
+  variance: variance,
+  std_dev: std_dev
+}
+
+analysis → output
+
+
+// Example 14: Function Composition
+// ============================================================
+// Define and compose mathematical functions
+
+double(x) = x * 2
+square(x) = x * x
+addOne(x) = x + 1
+
+// Compose functions: double(square(addOne(x)))
+x ← 5
+result ← double(square(addOne(x)))
+
+result → output
+
+
+// Example 15: Nested Summation
+// ============================================================
+// Double summation for matrix operations
+
+// Sum of all elements in a matrix
+M ← [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+sum_all ← Σ_{i=1}^{3} Σ_{j=1}^{3} M[i,j]
+
+sum_all → output
+
+
+// ============================================================
+// These examples demonstrate Void's mathematical syntax
+// for clear, concise, and AI-friendly code generation
+// ============================================================
