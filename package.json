@@ -1,0 +1,43 @@
+{
+  "name": "void-core",
+  "version": "1.0.0",
+  "description": "The Assembly Language of AI - Pure Math-based Ultra-Dense Programming Language",
+  "main": "src/void-interpreter.js",
+  "scripts": {
+    "test": "node tests/test.js",
+    "start": "node src/void-interpreter.js",
+    "server": "npx http-server docs -p 8080",
+    "demo": "node examples/demo.js"
+  },
+  "keywords": [
+    "void",
+    "language",
+    "ai",
+    "mathematics",
+    "programming",
+    "compiler",
+    "interpreter",
+    "neural",
+    "semantic"
+  ],
+  "author": "TheStrongestOfTomorrow",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheStrongestOfTomorrow/void-core.git"
+  },
+  "homepage": "https://thestrongestoftomorrow.github.io/void-core/",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "files": [
+    "src/",
+    "docs/",
+    "examples/",
+    "README.md",
+    "LICENSE"
+  ]
+}
