@@ -1,0 +1,37 @@
+# Void-MOA Training Configuration
+# Not a separate model — uses Void-1 and Void-2 with intelligent routing
+# The "training" here refers to optimizing the router classifier
+
+router:
+  name: "Void-MOA-Router"
+  type: "intent-classifier"
+  architecture: "lightweight-transformer"
+  params: "5M"
+  
+training:
+  epochs: 5
+  learning_rate: 5e-4
+  batch_size: 32
+  
+dataset:
+  sources:
+    - name: "intent-classification"
+      size: "10K labeled queries"
+      categories: ["code", "language", "hybrid"]
+  
+routing:
+  void_1_model: "void-1:latest"
+  void_2_model: "void-2:latest"
+  fallback: "void-1"  # Default to code model
+  confidence_threshold: 0.6
+  
+ensemble:
+  strategy: "weighted-voting"
+  weights:
+    code: 0.7   # Void-1 gets 70% weight for code
+    language: 0.7  # Void-2 gets 70% weight for language
+    hybrid: 0.5  # Equal weight for hybrid
+
+deployment:
+  ram_requirement: "4GB"  # Both models loaded
+  swap_allowed: true  # Can swap models to RAM

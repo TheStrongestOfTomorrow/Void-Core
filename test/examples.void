@@ -1,0 +1,31 @@
+// Void Code Examples
+// Run with: void run test/examples.void
+
+→ "=== Void Code Example Suite ==="
+
+// Basic arithmetic
+x ← 42
+→ "Value of x:"
+→ x
+
+// Fibonacci
+fib(0) = 0
+fib(1) = 1
+fib(n) = fib(n-1) + fib(n-2)
+→ fib(10)
+
+// Set operations
+S ← {1, 2, 3, 4, 5}
+T ← {4, 5, 6, 7, 8}
+→ S ∪ T
+→ S ∩ T
+
+// Lambda
+square ← λx. x^2
+→ square(5)
+
+// Power operations
+result ← 2^10
+→ result
+
+→ "=== All examples completed ==="

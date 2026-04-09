@@ -1,0 +1,48 @@
+# Void-1 Training Configuration
+# Target: 100MB quantized model (Q4_K_M)
+# Base: Qwen2.5-Coder-0.5B → Fine-tuned on Void Code corpus
+
+model:
+  name: "Void-1"
+  base: "Qwen/Qwen2.5-Coder-0.5B"
+  target_size_mb: 100
+  quantization: "Q4_K_M"
+  
+training:
+  epochs: 3
+  learning_rate: 2e-5
+  batch_size: 4
+  gradient_accumulation: 8
+  max_seq_length: 8192
+  warmup_ratio: 0.1
+  weight_decay: 0.01
+  lr_scheduler: "cosine"
+  
+dataset:
+  sources:
+    - name: "void-code-corpus"
+      type: "synthetic"
+      size: "50K pairs"
+      description: "Natural language → Void Code translations"
+    - name: "math-reasoning"
+      type: "filtered"
+      source: "open-source math datasets"
+      size: "20K examples"
+    - name: "agent-traces"
+      type: "synthetic"
+      size: "10K tool-use trajectories"
+    - name: "deep-research"
+      type: "synthetic"
+      size: "5K research chains"
+  
+  format: "chatml"
+  split_ratio: [0.9, 0.05, 0.05]
+
+evaluation:
+  metrics: ["accuracy", "code_execution_rate", "tool_use_accuracy"]
+  benchmark: "custom-void-bench"
+
+deployment:
+  target: "ollama"
+  platforms: ["linux-arm64", "linux-amd64", "darwin-arm64", "darwin-amd64"]
+  ram_requirement: "2GB"

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Void AI — Universal Launcher
+# Usage: void-ai [command] [args...]
+# Commands: chat, code, think, agent, void, serve
+
+VOID_HOME="${VOID_HOME:-$HOME/.void-ai}"
+OLLAMA="${OLLAMA_HOST:-http://localhost:11434}"
+
+case "${1:-}" in
+    chat)
+        shift
+        ollama run void-2 "$@"
+        ;;
+    code)
+        shift
+        ollama run void-1 "$@"
+        ;;
+    think)
+        shift
+        ollama run void-1 "DEEP RESEARCH MODE: $*"
+        ;;
+    agent)
+        shift
+        ollama run void-1 "AGENT MODE - Execute: $*"
+        ;;
+    void)
+        shift
+        python3 "$VOID_HOME/src/nlp/voidcode.py" "$@"
+        ;;
+    serve)
+        python3 "$VOID_HOME/src/api/server.py"
+        ;;
+    models)
+        ollama list | grep void
+        ;;
+    *)
+        # Auto-route via MOA
+        ollama run void-moa "$@"
+        ;;
+esac

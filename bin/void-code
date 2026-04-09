@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Void Code CLI Runner
+# Usage: void-code [file.void | -e "expression"]
+
+if [ "$1" = "-e" ]; then
+    # Direct expression
+    echo "$2" | ollama run void-1 "Execute this Void Code expression and show only the result:"
+elif [ -f "$1" ]; then
+    # File
+    cat "$1" | ollama run void-1 "Execute this Void Code program and show output:"
+else
+    # REPL mode
+    echo "Void Code REPL v1.0 — Type expressions or 'exit' to quit"
+    while read -p "void> " line; do
+        [ "$line" = "exit" ] && break
+        echo "$line" | ollama run void-1 "Execute: $line"
+    done
+fi

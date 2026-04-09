@@ -1,0 +1,47 @@
+# Void-2 Training Configuration
+# Target: 100MB quantized model (Q4_K_M)
+# Base: Phi-3-mini-4k → Fine-tuned for creative + analytical writing
+
+model:
+  name: "Void-2"
+  base: "microsoft/Phi-3-mini-4k-instruct"
+  target_size_mb: 100
+  quantization: "Q4_K_M"
+  
+training:
+  epochs: 2
+  learning_rate: 1e-5
+  batch_size: 4
+  gradient_accumulation: 8
+  max_seq_length: 4096
+  warmup_ratio: 0.1
+  weight_decay: 0.01
+  lr_scheduler: "cosine"
+  
+dataset:
+  sources:
+    - name: "creative-writing"
+      type: "filtered"
+      source: "open-source literature datasets"
+      size: "30K examples"
+    - name: "technical-writing"
+      type: "synthetic"
+      size: "20K examples"
+    - name: "conversation"
+      type: "filtered"
+      size: "25K dialogues"
+    - name: "analysis-essays"
+      type: "synthetic"
+      size: "15K analytical pieces"
+  
+  format: "chatml"
+  split_ratio: [0.9, 0.05, 0.05]
+
+evaluation:
+  metrics: ["perplexity", "human_eval_score", "creativity_score"]
+  benchmark: "custom-void-writing-bench"
+
+deployment:
+  target: "ollama"
+  platforms: ["linux-arm64", "linux-amd64", "darwin-arm64", "darwin-amd64"]
+  ram_requirement: "2GB"

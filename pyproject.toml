@@ -1,0 +1,30 @@
+[project]
+name = "void-ai"
+version = "1.0.0"
+description = "Void AI — The Assembly Language of AI. Lightweight AI with three-model architecture."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Void Core Project"}
+]
+keywords = ["ai", "llm", "ollama", "void-code", "agent", "lightweight"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.scripts]
+void-ai = "bin.void-ai:main"
+void-code = "bin.void-code:main"
+void-router = "models.void-moa.router:main"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[tool.setuptools.packages.find]
+include = ["src*", "models*"]

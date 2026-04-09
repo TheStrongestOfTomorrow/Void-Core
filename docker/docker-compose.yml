@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  void-ai:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - VOID_MODE=production
+      - VOID_RAM_LIMIT=2147483648
+      - OLLAMA_HOST=http://ollama:11434
+    volumes:
+      - void-data:/data
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+volumes:
+  void-data:
+  ollama-data:
