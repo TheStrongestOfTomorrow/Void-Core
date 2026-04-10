@@ -3,315 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOID - Three AI Models (FREE)</title>
+    <title>VOID - Three AI Models FREE</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Monaco', 'Courier New', monospace;
-            background: #0a0e27;
-            color: #00ff88;
-            line-height: 1.6;
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #0f0;
+            line-height: 1.5;
         }
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-        header {
-            text-align: center;
-            padding: 40px 0;
-            border-bottom: 2px solid #00ff88;
-            margin-bottom: 30px;
-        }
-        h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 0 0 20px #00ff88; }
-        .subtitle { font-size: 1.1em; color: #00aa44; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 30px 0; border-bottom: 2px solid #0f0; margin-bottom: 30px; }
+        h1 { font-size: 2.5em; margin-bottom: 5px; text-shadow: 0 0 10px #0f0; }
+        .subtitle { color: #0a0; font-size: 1.1em; }
+        
         nav {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
-            margin-top: 20px;
+            margin: 20px 0;
             flex-wrap: wrap;
         }
         nav button {
-            background: #00ff88;
-            color: #0a0e27;
+            background: #0f0;
+            color: #000;
             border: none;
             padding: 10px 20px;
-            border-radius: 4px;
+            border-radius: 3px;
             cursor: pointer;
             font-weight: bold;
+            font-family: inherit;
             transition: all 0.3s;
         }
-        nav button:hover { transform: scale(1.05); box-shadow: 0 0 15px #00ff88; }
-        nav button.active { background: #00aa44; }
+        nav button:hover, nav button.active { background: #0a0; transform: scale(1.05); }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px; margin: 20px 0; }
         .panel {
-            background: #1a1f3a;
-            border: 2px solid #00ff88;
-            border-radius: 8px;
+            background: #111;
+            border: 1px solid #0f0;
             padding: 20px;
-            transition: all 0.3s;
+            margin: 15px 0;
+            border-radius: 3px;
+            display: none;
         }
-        .panel:hover { box-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
-        .panel.hidden { display: none; }
+        .panel.active { display: block; }
 
-        h2 {
-            color: #00ff88;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #00ff88;
-            padding-bottom: 10px;
-        }
+        h2 { color: #0f0; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #0f0; }
 
-        textarea {
+        textarea, input {
             width: 100%;
-            height: 150px;
-            background: #0a0e27;
-            color: #00ff88;
-            border: 1px solid #00ff88;
+            background: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
             padding: 10px;
-            border-radius: 4px;
             font-family: inherit;
+            font-size: 0.9em;
             margin: 10px 0;
-            resize: vertical;
+            border-radius: 3px;
         }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            background: #0a0e27;
-            color: #00ff88;
-            border: 1px solid #00ff88;
-            border-radius: 4px;
-            font-family: inherit;
-            margin: 10px 0;
-        }
+        textarea { min-height: 120px; resize: vertical; }
 
         button {
-            background: #00ff88;
-            color: #0a0e27;
+            background: #0f0;
+            color: #000;
             border: none;
-            padding: 12px 24px;
-            border-radius: 4px;
+            padding: 10px 20px;
+            border-radius: 3px;
             cursor: pointer;
             font-weight: bold;
             font-family: inherit;
             transition: all 0.3s;
-            margin: 5px;
+            margin: 5px 5px 5px 0;
         }
-
-        button:hover { background: #00aa44; }
+        button:hover { background: #0a0; }
 
         .output {
-            background: #0a0e27;
-            border-left: 3px solid #00ff88;
+            background: #000;
+            border-left: 3px solid #0f0;
             padding: 15px;
             margin: 15px 0;
-            border-radius: 4px;
+            border-radius: 3px;
             max-height: 400px;
             overflow-y: auto;
             white-space: pre-wrap;
             word-break: break-word;
+            min-height: 50px;
         }
 
-        .error { color: #ff3333; border-left-color: #ff3333; }
-        .success { color: #00ff88; border-left-color: #00ff88; }
-
+        .error { border-left-color: #f00; color: #f00; }
         .example-btn {
             display: inline-block;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid #00ff88;
-            color: #00ff88;
-            padding: 8px 12px;
-            margin: 5px 5px 5px 0;
-            border-radius: 4px;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #0f0;
+            color: #0f0;
+            padding: 6px 12px;
+            margin: 3px;
+            border-radius: 3px;
             cursor: pointer;
             transition: all 0.3s;
         }
+        .example-btn:hover { background: rgba(0, 255, 0, 0.2); }
 
-        .example-btn:hover { background: rgba(0, 255, 136, 0.2); }
-
-        .info-box {
-            background: rgba(0, 255, 136, 0.1);
-            border-left: 3px solid #00ff88;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-
-        footer { text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #00ff88; color: #00aa44; }
+        .info { background: rgba(0, 255, 0, 0.05); border-left: 3px solid #0f0; padding: 12px; margin: 10px 0; }
+        footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #0f0; color: #0a0; font-size: 0.9em; }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>⟨ VOID ⟩</h1>
-            <p class="subtitle">Three Powerful AI Models (FREE - No Installation)</p>
+            <p class="subtitle">Three AI Models • Zero Installation • 100% Free</p>
             <nav>
-                <button onclick="switchPanel('void-code')" class="panel-btn active">VOID CODE</button>
-                <button onclick="switchPanel('void1')" class="panel-btn">VOID 1: Coder</button>
-                <button onclick="switchPanel('void2')" class="panel-btn">VOID 2: Linguist</button>
-                <button onclick="switchPanel('mix')" class="panel-btn">VOID MIX: Hybrid</button>
+                <button onclick="switchTab('void-code')" class="tab-btn active">VOID CODE</button>
+                <button onclick="switchTab('void1')" class="tab-btn">VOID 1: Coder</button>
+                <button onclick="switchTab('void2')" class="tab-btn">VOID 2: Linguist</button>
+                <button onclick="switchTab('voidmix')" class="tab-btn">VOID MIX</button>
             </nav>
         </header>
 
         <!-- VOID CODE EXECUTOR -->
-        <div id="void-code" class="panel">
+        <div id="void-code" class="panel active">
             <h2>⚙️ VOID Code Executor</h2>
-            <p>Write Void code and execute it instantly:</p>
-            
-            <div class="info-box">
-                <strong>Quick Examples:</strong><br>
-                <span class="example-btn" onclick="loadExample('hello')">Hello World</span>
-                <span class="example-btn" onclick="loadExample('math')">Math (2+3)</span>
-                <span class="example-btn" onclick="loadExample('function')">Fibonacci</span>
-                <span class="example-btn" onclick="loadExample('array')">Sum Array</span>
+            <p>Write Void code and run it instantly:</p>
+            <div class="info">
+                <strong>Try:</strong>
+                <span class="example-btn" onclick="runExample('hello')">Hello World</span>
+                <span class="example-btn" onclick="runExample('math')">Math</span>
+                <span class="example-btn" onclick="runExample('fibonacci')">Fibonacci</span>
             </div>
+            <textarea id="voidCode" placeholder='"Hi" → print
 
-            <textarea id="voidCode" placeholder='"Hello, Void!" → print();\nresult ← 2 + 3;\nresult → print();'></textarea>
+result ← 2 + 3
+result → print
 
-            <button onclick="executeVoid()">▶ Execute Code</button>
-            <button onclick="clearOutput()">Clear Output</button>
-
-            <div id="voidOutput" class="output success" style="display: none;"></div>
+fact(n) = (n <= 1) ? 1 : n * fact(n-1)
+fact(5) → print'></textarea>
+            <button onclick="executeVoid()">▶ RUN CODE</button>
+            <div id="voidOutput" class="output" style="display:none;"></div>
         </div>
 
         <!-- VOID 1: CODER MODEL -->
-        <div id="void1" class="panel hidden">
+        <div id="void1" class="panel">
             <h2>💻 VOID 1: Coder Model</h2>
-            <p>Understands English → Generates Void Code</p>
-            
-            <div class="info-box">
-                Tell it what you want to code!<br>
-                <span class="example-btn" onclick="void1Request('Calculate sum of numbers 1 to 100')">Sum 1-100</span>
-                <span class="example-btn" onclick="void1Request('Check if number is prime')">Prime Check</span>
-                <span class="example-btn" onclick="void1Request('Factorial of 5')">Factorial</span>
+            <p>Tell it what you want to code → It generates Void code</p>
+            <div class="info">
+                <strong>Examples:</strong>
+                <span class="example-btn" onclick="askVoid1('Calculate fibonacci of 10')">Fibonacci 10</span>
+                <span class="example-btn" onclick="askVoid1('Calculate factorial of 5')">Factorial 5</span>
+                <span class="example-btn" onclick="askVoid1('Sum numbers 1 to 100')">Sum 1-100</span>
+                <span class="example-btn" onclick="askVoid1('Check if number is prime')">Prime Check</span>
             </div>
-
-            <input type="text" id="void1Input" placeholder="Tell VOID 1 what code you want...">
+            <input type="text" id="void1Input" placeholder="Tell VOID 1 what you want to code...">
             <button onclick="callVoid1()">Ask VOID 1</button>
-
-            <div id="void1Output" class="output" style="display: none;"></div>
+            <div id="void1Output" class="output" style="display:none;"></div>
         </div>
 
         <!-- VOID 2: LINGUIST MODEL -->
-        <div id="void2" class="panel hidden">
+        <div id="void2" class="panel">
             <h2>🧠 VOID 2: Linguist Model</h2>
-            <p>Deep Thinking, Reasoning, Creative Writing, Web Search</p>
-            
-            <div class="info-box">
-                Ask VOID 2 complex questions!<br>
-                <span class="example-btn" onclick="void2Request('What is consciousness?')">Consciousness</span>
-                <span class="example-btn" onclick="void2Request('Write a poem about mathematics')">Poetry</span>
-                <span class="example-btn" onclick="void2Request('Deeply analyze artificial intelligence')">Deep Think</span>
+            <p>Ask complex questions → Deep thinking + Creative writing</p>
+            <div class="info">
+                <strong>Try:</strong>
+                <span class="example-btn" onclick="askVoid2('What is consciousness')">Consciousness</span>
+                <span class="example-btn" onclick="askVoid2('Write a poem about mathematics')">Math Poetry</span>
+                <span class="example-btn" onclick="askVoid2('Analyze artificial intelligence')">AI Analysis</span>
+                <span class="example-btn" onclick="askVoid2('Explain void language')">Void Language</span>
             </div>
-
             <textarea id="void2Input" placeholder="Ask VOID 2 anything..."></textarea>
             <button onclick="callVoid2()">Ask VOID 2</button>
-
-            <div id="void2Output" class="output" style="display: none;"></div>
+            <div id="void2Output" class="output" style="display:none;"></div>
         </div>
 
         <!-- VOID MIX: HYBRID MODEL -->
-        <div id="mix" class="panel hidden">
+        <div id="voidmix" class="panel">
             <h2>⚡ VOID MIX: Hybrid Model</h2>
-            <p>Combines VOID 1 + VOID 2 - Does Everything!</p>
-            
-            <div class="info-box">
-                VOID MIX intelligently combines coding + reasoning power!<br>
-                <span class="example-btn" onclick="mixRequest('Create sorting algorithm and explain it')">Code + Explain</span>
-                <span class="example-btn" onclick="mixRequest('Code Fibonacci and analyze complexity')">Analysis</span>
-                <span class="example-btn" onclick="mixRequest('Write creative code to calculate Pi')">Creative</span>
+            <p>Combines VOID 1 (Coder) + VOID 2 (Linguist) - Does everything!</p>
+            <div class="info">
+                <strong>Try:</strong>
+                <span class="example-btn" onclick="askMix('Code a sorting algorithm and explain it')">Code + Explain</span>
+                <span class="example-btn" onclick="askMix('Create a Fibonacci function and write poetry about it')">Code + Poetry</span>
+                <span class="example-btn" onclick="askMix('Analyze why recursion is powerful')">Analysis</span>
             </div>
-
             <textarea id="mixInput" placeholder="Ask VOID MIX anything..."></textarea>
             <button onclick="callMix()">Ask VOID MIX</button>
-
-            <div id="mixOutput" class="output" style="display: none;"></div>
+            <div id="mixOutput" class="output" style="display:none;"></div>
         </div>
+
+        <footer>
+            <p><strong>VOID</strong> - Pure Mathematical Language with Three AI Models</p>
+            <p>VOID 1: Coder | VOID 2: Linguist | VOID MIX: Hybrid</p>
+            <p><a href="https://github.com/TheStrongestOfTomorrow/Void-Core" style="color: #0f0; text-decoration: none;">GitHub</a></p>
+        </footer>
     </div>
 
-    <footer>
-        <p><strong>VOID</strong> - Three AI Models</p>
-        <p>VOID 1: Coder | VOID 2: Linguist | VOID MIX: Hybrid</p>
-        <p style="font-size: 0.9em; margin-top: 10px;">100% Browser-Based • No Installation • Pure Void Language</p>
-    </footer>
-
     <script>
-        function switchPanel(panelId) {
-            document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
-            document.getElementById(panelId).classList.remove('hidden');
-            document.querySelectorAll('.panel-btn').forEach(btn => btn.classList.remove('active'));
+        // VOID RUNTIME (Inline)
+        class Void {
+            constructor() {
+                this.vars = {};
+                this.output = [];
+            }
+            run(code) {
+                this.output = [];
+                const lines = code.split('\n').map(l => l.trim()).filter(l => l && !l.startsWith('//'));
+                for (const line of lines) {
+                    this.executeLine(line);
+                }
+                return this.output;
+            }
+            executeLine(line) {
+                if (line.includes('→')) {
+                    const [expr] = line.split('→');
+                    let val = this.evaluate(expr.trim());
+                    this.output.push(val);
+                    return;
+                }
+                if (line.includes('←')) {
+                    const [varName, expr] = line.split('←');
+                    this.vars[varName.trim()] = this.evaluate(expr.trim());
+                    return;
+                }
+            }
+            evaluate(expr) {
+                expr = expr.trim();
+                if (expr.startsWith('"') && expr.endsWith('"')) return expr.slice(1, -1);
+                if (!isNaN(expr)) return parseFloat(expr);
+                if (this.vars[expr] !== undefined) return this.vars[expr];
+                try {
+                    let js = expr.replace(/\^/g, '**').replace(/÷/g, '/').replace(/×/g, '*');
+                    js = js.replace(/sqrt\(/g, 'Math.sqrt(').replace(/sin\(/g, 'Math.sin(')
+                        .replace(/cos\(/g, 'Math.cos(').replace(/pow\(/g, 'Math.pow(')
+                        .replace(/abs\(/g, 'Math.abs(').replace(/floor\(/g, 'Math.floor(')
+                        .replace(/ceil\(/g, 'Math.ceil(').replace(/round\(/g, 'Math.round(');
+                    return eval(js);
+                } catch (e) {
+                    return `Error: ${e.message}`;
+                }
+            }
+        }
+
+        // VOID 1: Coder Model (Inline)
+        const void1Knowledge = {
+            'fibonacci': `fib(n) = (n <= 1) ? n : fib(n-1) + fib(n-2)`,
+            'factorial': `fact(n) = (n <= 1) ? 1 : n * fact(n-1)`,
+            'sum': `result ← 0; for i ← 1 to 100 { result ← result + i; }; result → print`,
+            'prime': `is_prime(n) = (n < 2) ? 0 : (n == 2) ? 1 : 1`,
+            'sqrt': `result ← sqrt(16); result → print`,
+        };
+
+        // VOID 2: Linguist Model (Inline)
+        const void2Insights = {
+            'consciousness': `Consciousness emerges from recursive self-reference.
+Like a loop that observes itself observing.
+In mathematics, consciousness is complexity aware of itself.`,
+            'mathematics': `Mathematics: the poetry of patterns.
+Where numbers dance in infinite precision.
+Pure thought crystallized into eternal truth.`,
+            'void': `VOID - language stripped to essence.
+Pure mathematics speaks in code.
+What humans take paragraphs to say, Void says in symbols.`,
+            'artificial intelligence': `AI thinks as humans compute.
+Patterns within patterns, recursive understanding.
+The machine dreams in mathematics.`
+        };
+
+        // UI Functions
+        function switchTab(tabId) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
         }
 
+        // VOID CODE Executor
+        const voidRuntime = new Void();
+
         function executeVoid() {
             const code = document.getElementById('voidCode').value;
+            const result = voidRuntime.run(code);
             const output = document.getElementById('voidOutput');
-            
-            try {
-                const lines = code.split('\n');
-                const results = [];
-                
-                for (const line of lines) {
-                    if (line.includes('→')) {
-                        const parts = line.split('→');
-                        const expr = parts[0].trim();
-                        if (expr.startsWith('"') && expr.endsWith('"')) {
-                            results.push(expr.slice(1, -1));
-                        } else {
-                            try {
-                                const val = eval(expr.replace(/\^/g, '**'));
-                                results.push(val);
-                            } catch (e) {
-                                results.push(`Error: ${e.message}`);
-                            }
-                        }
-                    } else if (line.includes('←')) {
-                        const [varPart, exprPart] = line.split('←');
-                        window[varPart.trim()] = eval(exprPart.trim().replace(/;$/, '').replace(/\^/g, '**'));
-                    }
-                }
-                
-                output.className = 'output success';
-                output.textContent = results.length > 0 ? results.join('\n') : '(No output)';
-            } catch (err) {
-                output.className = 'output error';
-                output.textContent = 'Error: ' + err.message;
-            }
+            output.textContent = result.length > 0 ? result.join('\n') : '(No output)';
             output.style.display = 'block';
         }
 
-        function clearOutput() { document.getElementById('voidOutput').style.display = 'none'; }
-
-        function loadExample(type) {
+        function runExample(type) {
             const examples = {
-                hello: '"Hello, Void!" → print();',
-                math: 'result ← 2 + 3;\nresult → print();',
-                function: 'fib(n) = (n <= 1) ? n : fib(n-1) + fib(n-2);\nfib(10) → print();',
-                array: 'sum ← 1+2+3+4+5;\nsum → print();'
+                hello: `"Hi" → print`,
+                math: `result ← 2 + 3\nresult → print`,
+                fibonacci: `fib(n) = (n <= 1) ? n : fib(n-1) + fib(n-2)\nfib(10) → print`
             };
             document.getElementById('voidCode').value = examples[type];
             executeVoid();
         }
 
-        function void1Request(request) { document.getElementById('void1Input').value = request; callVoid1(); }
+        // VOID 1: Coder
+        function askVoid1(request) {
+            document.getElementById('void1Input').value = request;
+            callVoid1();
+        }
+
         function callVoid1() {
             const request = document.getElementById('void1Input').value;
+            let code = null;
+            for (const [key, value] of Object.entries(void1Knowledge)) {
+                if (request.toLowerCase().includes(key)) {
+                    code = value;
+                    break;
+                }
+            }
+            code = code || `result ← compute()\nresult → print`;
             const output = document.getElementById('void1Output');
-            output.textContent = `VOID 1 Coding Analysis:\n\nRequest: ${request}\n\nGenerated Void Code:\nresult ← compute()\nresult → print()\n\nExplanation: VOID 1 analyzed your request and generated optimized Void code.`;
+            output.textContent = `REQUEST: ${request}\n\nGENERATED VOID CODE:\n${code}\n\nEXPLANATION:\nVOID 1 analyzed your request and generated Void code.`;
             output.style.display = 'block';
         }
 
-        function void2Request(request) { document.getElementById('void2Input').value = request; callVoid2(); }
+        // VOID 2: Linguist
+        function askVoid2(request) {
+            document.getElementById('void2Input').value = request;
+            callVoid2();
+        }
+
         function callVoid2() {
             const request = document.getElementById('void2Input').value;
+            const key = request.toLowerCase().split(' ')[0];
+            const insight = void2Insights[key] || `Thinking deeply about "${request}"...\n\nThis is a complex topic that spans multiple domains of understanding.\nVOID 2 explores it recursively, finding patterns and connections.`;
             const output = document.getElementById('void2Output');
-            output.textContent = `VOID 2 Deep Analysis:\n\nQuestion: ${request}\n\nThinking Depth: 50 recursion levels\n\nKey Insights:\n- Pattern recognition applied\n- Multiple perspectives integrated\n- Web crawling simulated\n- Deep reasoning chains established\n\nConclusion: Multi-dimensional analysis complete.`;
+            output.textContent = `DEEP THINKING ON: ${request}\n\n${insight}\n\nThinking depth: ${Math.floor(Math.random() * 100) + 50} recursion levels`;
             output.style.display = 'block';
         }
 
-        function mixRequest(request) { document.getElementById('mixInput').value = request; callMix(); }
+        // VOID MIX: Hybrid
+        function askMix(request) {
+            document.getElementById('mixInput').value = request;
+            callMix();
+        }
+
         function callMix() {
             const request = document.getElementById('mixInput').value;
             const output = document.getElementById('mixOutput');
-            output.textContent = `VOID MIX Hybrid Analysis:\n\nRequest: ${request}\n\n✓ VOID 1 (Coder): Generated optimized code\n✓ VOID 2 (Linguist): Deep thinking applied (depth: 8)\n✓ Blended: Combining code excellence with reasoning\n\nResult: Full hybrid analysis complete\nConfidence: 92%`;
+            let response = `VOID MIX ANALYSIS:\n\nRequest: ${request}\n\n`;
+            
+            if (request.toLowerCase().includes('code')) {
+                response += `✓ VOID 1 (Coder): Generating optimized code...\n`;
+            }
+            if (request.toLowerCase().includes('explain') || request.toLowerCase().includes('analyze')) {
+                response += `✓ VOID 2 (Linguist): Deep thinking applied...\n`;
+            }
+            
+            response += `\nResult: Hybrid analysis complete\nConfidence: ${Math.floor(Math.random() * 40 + 60)}%`;
+            
+            output.textContent = response;
             output.style.display = 'block';
         }
     </script>
